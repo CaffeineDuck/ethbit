@@ -8,7 +8,7 @@ from ethbit.commands.balance.utils import CurrType, get_stored_addresses
 from ethbit.commands.transactions.models import Transaction
 
 
-@click.command("get")
+@click.command("get", help="Get transactions for an address")
 @click.argument("address", required=False)
 @click.option("--name", "-n", type=str, help="Name of the address", required=False)
 @click.option(
@@ -39,7 +39,7 @@ async def get_transaction(
     print([tx.dict() for tx in transactions])
 
 
-@click.command("save")
+@click.command("save", help="Save transactions for an address")
 @click.argument("address", required=False)
 @click.option("--name", type=str, help="Name of the address", required=False)
 @click.option(

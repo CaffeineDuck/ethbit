@@ -7,7 +7,7 @@ __all__ = ("balance",)
 
 
 @click.group("bal", help="Show balance for your addresses")
-async def balance():
+def balance():
     ...
 
 

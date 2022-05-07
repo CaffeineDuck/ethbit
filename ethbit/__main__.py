@@ -2,13 +2,12 @@ import asyncclick as click
 
 from ethbit.commands.balance import balance
 from ethbit.commands.transactions import txn
-from click_rich_help import StyledGroup
 
 from .commands.setup import setup
 
 
-@click.group(cls=StyledGroup)
-async def cli():
+@click.group()
+def cli():
     ...
 
 
@@ -19,4 +18,4 @@ if __name__ == "__main__":
     cli.add_command(txn)
 
     # Start the CLI
-    cli()
+    cli(_anyio_backend="asyncio")
