@@ -14,13 +14,12 @@ def cli():
     ...
 
 
-if __name__ == "__main__":
-    # Add all the command groups
-    cli.add_command(setup)
-    cli.add_command(balance)
-    cli.add_command(txn)
-    cli.add_command(kraken)
-    cli.add_command(add)
+# Add all the command groups
+cli.add_command(setup)
+cli.add_command(balance)
+cli.add_command(txn)
+cli.add_command(kraken)
+cli.add_command(add)
 
-    # Start the CLI
-    cli(_anyio_backend="asyncio")
+# Start the CLI
+cli(_anyio_backend="asyncio")

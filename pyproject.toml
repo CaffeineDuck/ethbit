@@ -4,6 +4,9 @@ version = "0.1.0"
 description = "A python package for interacting with the Ethereum and bitcoin blockchain"
 authors = ["CaffeineDuck <hello@samrid.me>"]
 
+[tool.poetry.scripts]
+ethbit = 'ethbit.__main__:cli'
+
 [tool.poetry.dependencies]
 python = "^3.10"
 toml = "^0.10.2"
