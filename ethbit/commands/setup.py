@@ -25,7 +25,7 @@ def setup(force: bool) -> None:
     config["main"]["default_currency"] = input("Enter default currency: ")
 
     with open(fullpath, "w") as file_:
-        file_.write(toml.dumps(config))
+        toml.dump(config, file_)
 
     click.echo(f"Config file created at {fullpath}")
 
@@ -46,8 +46,9 @@ async def add(currency: str, address: str, name: str) -> None:
     fullpath = Path.home() / ".ethbit/config.ini"
     config = toml.load(fullpath)
 
-    config[f"{currency}.{name}"] = {"name": name, "address": address}
-    with open(fullpath, "w") as file:
-        file.write(toml.dumps(config))
+    config[f"{currency}-{name}"] = {"name": name, "address": address}
+
+    with open(fullpath, "w") as file_:
+        toml.dump(config, file_)
 
     click.echo(f"Address added for {currency}.")

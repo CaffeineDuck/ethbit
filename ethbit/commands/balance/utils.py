@@ -13,8 +13,8 @@ __all__ = (
 
 
 class CurrType(str, Enum):
-    ETH = "eth."
-    BTC = "btc."
+    ETH = "eth-"
+    BTC = "btc-"
 
 
 async def exchange_rate(curr: CurrType, vs_curr: str) -> str:
