@@ -1,5 +1,4 @@
-from click_configfile import (ConfigFileReader, Param, SectionSchema,
-                              matches_section)
+from click_configfile import ConfigFileReader, Param, SectionSchema, matches_section
 
 __all__ = ("CONTEXT_SETTINGS",)
 
@@ -8,11 +7,8 @@ class ConfigSectionSchema:
     @matches_section("main")
     class Main:
         currency = Param(default="USD")
-
-    @matches_section("kraken")
-    class Kraken(SectionSchema):
-        api_key = Param(type=str)
-        api_secret = Param(type=str)
+        kraken_api_key = Param(type=str)
+        kraken_api_sec = Param(type=str)
 
     @matches_section("eth.*")
     class Ethereum(SectionSchema):
@@ -28,7 +24,6 @@ class ConfigSectionSchema:
 class ConfigFileProcessor(ConfigFileReader):
     config_files = ["config.ini", "config.cfg"]
     config_section_schemas = [
-        ConfigSectionSchema.Kraken,
         ConfigSectionSchema.Ethereum,
         ConfigSectionSchema.Bitcoin,
         ConfigSectionSchema.Main,
