@@ -10,8 +10,8 @@ from .utils import (
     CurrType,
     exchange_rate,
     get_stored_addresses,
-    get_stored_name_address,
     print_dict,
+    get_balances,
 )
 
 
@@ -45,42 +45,21 @@ async def balance_eth(
     """
     Balance of ETH addresses.
     """
-    # Gets all the stored addresses
-    stored_addrs = get_stored_addresses(ctx, CurrType.ETH)
+    if name and addresses:
+        raise click.BadArgumentUsage("You can't use both --name and addresses.")
 
-    # Gets the conversion currency from the config file
-    if not vs_curr:
-        vs_curr = (
-            ctx.default_map.get("main", {}).get("currency", "USD")
-            if ctx.default_map
-            else "USD"
-        )
-
-    # Convert to lower case
-    vs_curr = vs_curr.lower() if vs_curr else "USD"
-
-    # If addresses are not provided read from config file
     if not addresses:
-        addresses = (
-            [addr.get("address") for addr in stored_addrs]
-            if not name
-            else [get_stored_name_address(stored_addrs, name)]
-        )
+        addresses = get_stored_addresses(ctx.default_map, CurrType.ETH, name)
 
-    # Checks if the addresses are valid and get their balances
-    new_addrs = check_valid_address(addresses)
-    balances = await get_balance(new_addrs, vs_curr)  # type: ignore
+    if not addresses:
+        return click.echo("No addresses provided.")
 
-    # Throw warning for invalid addresses
-    if new_addrs != list(addresses):
-        invalid_addrs = ", ".join(
-            [addr for addr in addresses if addr not in new_addrs and addr]
-        )
-        click.echo(f"{invalid_addrs} (is/are) not valid ETH addresse(s).", err=True)
+    valid_addrs = check_valid_address(addresses)
 
-    # Stop if there are no valid addresses
-    if not new_addrs:
-        return click.echo("No valid addresses found.", err=True)
+    balances, curr = await get_balances(
+        ctx.default_map, valid_addrs, vs_curr, get_balance
+    )
 
     # Print the balances
-    print_dict(("Address", f"Balance ({vs_curr.upper()})"), balances)
+    currency = curr or "USD"
+    print_dict(("Address", f"Balance ({currency.upper()})"), balances)
