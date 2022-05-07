@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "ethbit"
+version = "0.1.0"
+description = ""
+authors = ["CaffeineDuck <hello@samrid.me>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+toml = "^0.10.2"
+asyncclick = "^8.0.3"
+click-configfile = "^0.2.3"
+anyio = "^3.5.0"
+web3 = "^5.29.0"
+click = "^8.1.3"
+
+[tool.poetry.dev-dependencies]
+black = "^22.1.0"
+isort = "^5.10.1"
+pytest = "^7.1.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
