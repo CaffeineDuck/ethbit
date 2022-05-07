@@ -1,2 +1,3 @@
 .tool-versions
 __pycache__/
+config.ini
