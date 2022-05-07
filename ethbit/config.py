@@ -31,6 +31,7 @@ class ConfigFileProcessor(ConfigFileReader):
         ConfigSectionSchema.Kraken,
         ConfigSectionSchema.Ethereum,
         ConfigSectionSchema.Bitcoin,
+        ConfigSectionSchema.Main,
     ]
 
 
