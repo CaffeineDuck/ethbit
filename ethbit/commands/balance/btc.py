@@ -83,9 +83,17 @@ async def balance_btc(
         return click.echo("No addresses provided.")
 
     valid_addrs = check_valid_address(addresses)
+    stored_curr = (
+        ctx.default_map.get("main", {}).get("default_currency")
+        if ctx.default_map
+        else None
+    )
 
     balances, curr = await get_balances(
-        ctx.default_map, valid_addrs, vs_curr, get_balance
+        stored_curr,
+        valid_addrs,
+        vs_curr,
+        get_balance,
     )
 
     # Print the balances

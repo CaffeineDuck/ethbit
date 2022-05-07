@@ -48,24 +48,24 @@ def get_stored_addresses(
 
 def print_dict(title: tuple[str, str], values: dict[str, t.Any]) -> None:
     k, v = title
-    click.echo("{:>25} {:>30}".format(k, v))
+    click.echo("{:>5} {:>55}".format(k, v))
 
     for (key, val) in values.items():
-        click.echo("{:>10} {:>10}".format(key, val))
+        click.echo("{:>0} {:>15}".format(key, val))
 
 
 async def get_balances(
-    stored_values: dict[str, t.Any] | None,
+    stored_vs_curr: str | None,
     addresses: list[str],
     vs_curr: str | None,
     get_balance: t.Callable,
 ) -> tuple[dict[str, str | None], str | None]:
     # Gets the conversion currency from the config file
     if not vs_curr:
-        if not stored_values:
+        if not stored_vs_curr:
             vs_curr = "usd"
         else:
-            vs_curr = stored_values.get("eth", {}).get("vs_curr", "usd").lower()
+            vs_curr = stored_vs_curr
 
     # Checks if the addresses are valid and get their balances
     balances = await get_balance(addresses, vs_curr)

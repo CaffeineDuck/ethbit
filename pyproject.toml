@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "ethbit"
 version = "0.1.0"
-description = ""
+description = "A python package for interacting with the Ethereum and bitcoin blockchain"
 authors = ["CaffeineDuck <hello@samrid.me>"]
 
 [tool.poetry.dependencies]
