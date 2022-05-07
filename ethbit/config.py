@@ -1,4 +1,5 @@
 from click_configfile import ConfigFileReader, Param, SectionSchema, matches_section
+from pathlib import Path
 
 __all__ = ("CONTEXT_SETTINGS",)
 
@@ -22,7 +23,9 @@ class ConfigSectionSchema:
 
 
 class ConfigFileProcessor(ConfigFileReader):
-    config_files = ["config.ini", "config.cfg"]
+    config_files = [
+        Path.home() / ".ethbit/config.ini",
+    ]
     config_section_schemas = [
         ConfigSectionSchema.Ethereum,
         ConfigSectionSchema.Bitcoin,
